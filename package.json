@@ -1,0 +1,17 @@
+{
+  "name": "bensholder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^13.2.1",
+    "image-size": "^0.4.0",
+    "imagemin": "^4.0.0",
+    "lwip": "0.0.8"
+  }
+}
