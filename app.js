@@ -22,9 +22,10 @@ server.route([
     method: 'GET',
     path:'/{x}/{y}',
     handler: function (req, reply) {
+
       imageHelper.getImage(req.params.x, req.params.y)
         .then((buffer) => {
-          return reply(buffer).type('image/png');
+          return reply(buffer).type('image/png').header('Access-Control-Allow-Origin', '*');
         })
         .catch(() => {
           return reply('Unable to get image').code(404);
