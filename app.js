@@ -19,6 +19,13 @@ server.register(require('inert'), (err) => {
   server.route([
     {
       method: 'GET',
+      path:'/',
+      handler: function (req, reply) {
+        reply.file(`public/index.html`);
+      }
+    },
+    {
+      method: 'GET',
       path:'/{file}',
       handler: function (req, reply) {
         reply.file(`public/${req.params.file}`);
