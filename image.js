@@ -2,8 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const imageSize = require('image-size');
-const lwip = require('lwip');
-
+const sharp = require('sharp');
 
 let ImageHelper = function() {
   this.images = {};
@@ -37,16 +36,16 @@ ImageHelper.prototype.getImage = function(x, y) {
   return new Promise((resolve, reject) => {
     let ratio = this.getRatio(x, y);
     if(this.images[ratio]) {
-      lwip.open(this.getRandomImage(this.images[ratio]), (err, image) => {
-        if(err) console.log(err);
-        image.resize(x, y, 'lanczos', function(err, image) {
+      sharp(this.getRandomImage(this.images[ratio]))
+        .resize(x, y, { kernel: 'lanczos2'})
+        .toBuffer()
+        .then(buffer => {
+          return resolve(buffer);
+        })
+        .catch(err => {
           if(err) console.log(err);
-          image.toBuffer('png', function(err, buffer) {
-            if(err) console.log(err);
-            return resolve(buffer);
-          });
+          return reject();
         });
-      });
     } else {
       return reject();
     }
