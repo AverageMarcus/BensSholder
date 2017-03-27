@@ -44,6 +44,20 @@ server.register(require('inert'), (err) => {
             return reply('Unable to get image').code(404);
           });
       }
+    },
+    {
+      method: 'GET',
+      path:'/face',
+      handler: function (req, reply) {
+
+        imageHelper.getFace()
+          .then((buffer) => {
+            return reply(buffer).type('image/png').header('Access-Control-Allow-Origin', '*');
+          })
+          .catch(() => {
+            return reply('Unable to get image').code(404);
+          });
+      }
     }
   ]);
 
